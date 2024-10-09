@@ -1,5 +1,4 @@
 class Vehicle:
-    # Проверка в __COLOR_VARIANTS происходит не учитывая регистр ('BLACK' ~ 'black').
     __COLOR_VARIANTS = ['blue', 'red', 'green', 'black', 'white']
 
     def __init__(self, owner: str, model: str, color: str, engine_power: int):
@@ -9,31 +8,56 @@ class Vehicle:
         :param color: название цвета. (мы не можем менять цвет автомобиля своими руками)
         :param engine_power: мощность двигателя. (мы не можем менять мощность двигателя самостоятельно)
         """
-        self.__owner = owner
+        self.owner = owner
         self.__model= model
         self.__color = color
         self.__engine_power = engine_power
 
     def get_model(self):
-        """возвращает строку: "Модель: <название модели транспорта>" """
+        """
+        :return: возвращает строку: "Модель: <название модели транспорта>"
+        """
+        return f"Модель: {self.__model}"
 
     def get_horsepower(self):
-        """возвращает строку: "Мощность двигателя: <мощность>" """
+        """
+        :return: возвращает строку: "Мощность двигателя: <мощность>"
+        """
+        return f"Мощность двигателя: {self.__engine_power}"
 
     def get_color(self):
-        """возвращает строку: "Цвет: <цвет транспорта>" """
+        """
+        :return: возвращает строку: "Цвет: <цвет транспорта>"
+        """
+        return f"Цвет: {self.__color}"
 
     def print_info(self):
-        """распечатывает результаты методов (в том же порядке): get_model, get_horsepower, get_color; а так же владельца в конце в формате "Владелец: <имя>" """
+        """
+        распечатывает результаты методов (в том же порядке): get_model, get_horsepower, get_color;
+        а так же владельца в конце в формате "Владелец: <имя>"
+        """
+        print(self.get_model())
+        print(self.get_horsepower())
+        print(self.get_color())
+        print(f"Владелец: {self.owner}")
 
     def set_color(self, color):
-        """принимает аргумент new_color(str), меняет цвет __color на new_color, если он есть в списке __COLOR_VARIANTS, в противном случае выводит на экран надпись: "Нельзя сменить цвет на <новый цвет>"."""
+        """
+        принимает аргумент new_color(str), меняет цвет __color на new_color, если он есть в списке __COLOR_VARIANTS,
+        в противном случае выводит на экран надпись: "Нельзя сменить цвет на <новый цвет>".
+        Проверка в __COLOR_VARIANTS происходит не учитывая регистр ('BLACK' ~ 'black').
+        """
+        if color.upper() not in map(str.upper, self.__COLOR_VARIANTS):
+            print(f"Нельзя сменить цвет на {color}")
+        else:
+            self.__color = color
 
 
 class Sedan(Vehicle):
+    __PASSENGERS_LIMIT = 5  # в седан может поместиться только 5 пассажиров
+
     def __init__(self, owner: str, model: str, color: str, engine_power: int):
         super().__init__(owner, model, color, engine_power)
-        self.__PASSENGERS_LIMIT = 5     # в седан может поместиться только 5 пассажиров
 
 
 def test():
@@ -67,7 +91,6 @@ def test():
 
 if __name__ == '__main__':
     test()
-
 
 
 """
